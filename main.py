@@ -96,10 +96,10 @@ def main(args):
                                  help='dataset to use: mnist | cifar10 | imagenet | custom')
     training_parser.add_argument('--dataset_dir_name', default='',
                                  help='name of the dir containing the dataset if dataset == custom')
-    training_parser.add_argument('--data-dir', default='/media/ssd/Datasets',
+    training_parser.add_argument('--data-dir', default='~/dataset',
                                  help='directory containing the dataset')
     training_parser.add_argument('--epochs', type=int, default=20, metavar='N',
-                                 help='number of epochs to train (default: 10)')
+                                 help='number of epochs to train (default: 20)')
     training_parser.add_argument('--max-epoch-samples', type=int, default=50000,
                                  help='max num of samples per epoch')
     training_parser.add_argument('--no-cuda', action='store_true', default=False,
@@ -108,6 +108,8 @@ def main(args):
                                  help='random seed (default: 1)')
     training_parser.add_argument('--gpus', default='0',
                                  help='gpus used for training - e.g 0,1,3')
+    training_parser.add_argument('--num_workers', type=int, default=8,
+                                 help='number of workers')
 
     logging_parser = parser.add_argument_group('Logging Parameters')
     logging_parser.add_argument('--log-interval', type=int, default=10, metavar='N',
@@ -145,7 +147,7 @@ def main(args):
     optimizer = optim.Adam(model.parameters(), lr=lr)
     scheduler = optim.lr_scheduler.StepLR(optimizer, 10 if args.dataset == 'imagenet' else 30, 0.5,)
 
-    kwargs = {'num_workers': 8, 'pin_memory': True} if args.cuda else {}
+    kwargs = {'num_workers': args.num_workers, 'pin_memory': True} if args.cuda else {}
     dataset_train_dir = os.path.join(args.data_dir, dataset_dir_name)
     dataset_test_dir = os.path.join(args.data_dir, dataset_dir_name)
     if args.dataset in ['imagenet', 'custom']:

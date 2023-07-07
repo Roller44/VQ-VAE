@@ -108,7 +108,7 @@ def main(args):
                                  help='random seed (default: 1)')
     training_parser.add_argument('--gpus', default='0',
                                  help='gpus used for training - e.g 0,1,3')
-    training_parser.add_argument('--num_workers', type=int, default=8,
+    training_parser.add_argument('--num_workers', type=int, default=os.cpu_count(),
                                  help='number of workers')
 
     logging_parser = parser.add_argument_group('Logging Parameters')

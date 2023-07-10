@@ -73,7 +73,7 @@ def main(args):
     parser = argparse.ArgumentParser(description='Variational AutoEncoders')
 
     model_parser = parser.add_argument_group('Model Parameters')
-    model_parser.add_argument('--model', default='vae', choices=['vae', 'vqvae'],
+    model_parser.add_argument('--model', default='vqvae', choices=['vae', 'vqvae'],
                               help='autoencoder variant to use: vae | vqvae')
     model_parser.add_argument('--batch-size', type=int, default=128, metavar='N',
                               help='input batch size for training (default: 128)')
@@ -91,7 +91,7 @@ def main(args):
                               help='kl-divergence coefficient in loss')
 
     training_parser = parser.add_argument_group('Training Parameters')
-    training_parser.add_argument('--dataset', default='cifar10', choices=['mnist', 'cifar10', 'imagenet',
+    training_parser.add_argument('--dataset', default='minst', choices=['mnist', 'cifar10', 'imagenet',
                                                                           'custom'],
                                  help='dataset to use: mnist | cifar10 | imagenet | custom')
     training_parser.add_argument('--dataset_dir_name', default='',

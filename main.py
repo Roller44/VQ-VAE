@@ -91,7 +91,7 @@ def main(args):
                               help='kl-divergence coefficient in loss')
 
     training_parser = parser.add_argument_group('Training Parameters')
-    training_parser.add_argument('--dataset', default='minst', choices=['mnist', 'cifar10', 'imagenet',
+    training_parser.add_argument('--dataset', default='mnist', choices=['mnist', 'cifar10', 'imagenet',
                                                                           'custom'],
                                  help='dataset to use: mnist | cifar10 | imagenet | custom')
     training_parser.add_argument('--dataset_dir_name', default='',

@@ -141,8 +141,8 @@ class VQ_VAE(nn.Module):
 
     def forward(self, x):
         z_e = self.encode(x.view(-1, 784))
-        z_q, _ = self.emb(z_e, weight_sg=True).view(-1, self.hidden)
-        emb, _ = self.emb(z_e.detach()).view(-1, self.hidden)
+        z_q = self.emb(z_e, weight_sg=True)[0][0].view(-1, self.hidden)
+        emb = self.emb(z_e.detach())[0][1].view(-1, self.hidden)
         return self.decode(z_q), z_e, emb
 
     def sample(self, size):
